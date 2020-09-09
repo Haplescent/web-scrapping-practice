@@ -15,20 +15,23 @@ def getPageText(url):
         s.replaceWith('')
     # find body and extract text
     txt = bs.find('body').getText('\n')
+    websitename = re.sub(r'.+\/\/|www.|\..+', '', url)
+    print(websitename)
+    
     # remove multiple linebreaks and whitespace
-    return Newlines.sub('\n', txt)
+    txt = Newlines.sub('\n', txt)
+    tempfile = open(websitename,"w+")
+    tempfile.writelines(txt)
+    return txt
 
 def main():
     urls = [
-        'https://lemnos.vc',
-        'https://www.zettavp.com/',
-        'https://lsvp.com',
-        'https://bolt.io/',
-        'http://unionlabs.com/',
+
     ]
     txt = [getPageText(url) for url in urls]
     print(len(txt))
-    file1 = open("myfile.txt","w")
+    
+    file1 = open("everything.txt","w")
     file1.writelines(txt)
 
 if __name__=="__main__":
